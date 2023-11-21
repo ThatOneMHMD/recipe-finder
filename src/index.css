@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.mainBackground {
+  background-color: #FBAF5D;
+}
+
+/* for navBar use coral: FF6F61 or Persimmon: #FF6347 or Apricot: FBAF5D */

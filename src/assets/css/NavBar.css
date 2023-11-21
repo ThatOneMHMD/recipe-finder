@@ -1,0 +1,43 @@
+/* FOOTER CSS STYLING */
+
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FF6347; 
+    color: #fff; 
+    padding: 5px;
+}
+  
+.navbar-links {
+    list-style: none;
+    display: flex;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    font-size: 20px; 
+    gap: 20px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #fff; 
+    font-size: 18px; 
+    text-shadow: 1px 1px 1px black;
+}
+
+.navbar-links a:hover {
+    color: #F8F8FF; 
+    text-decoration: none;
+    opacity: 0.5;
+}
+
+
+.navbar-links li a:focus, .active {
+
+  background-color: #FBAF5D; 
+  border-radius: 5px; 
+  padding: 10px;
+  text-shadow: none;
+  font-weight: bold;
+  
+}

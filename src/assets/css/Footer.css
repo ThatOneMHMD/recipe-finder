@@ -1,0 +1,26 @@
+/* FOOTER CSS STYLING */
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #FF6347; 
+  color: #fff; 
+  padding: 20px;
+}
+
+.footer-links {
+  font-size: 18px; 
+}
+
+.footer-links a {
+  color: #D3D3D3; 
+  opacity: .9;
+  margin: 0 10px; 
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #F8F8FF; 
+}

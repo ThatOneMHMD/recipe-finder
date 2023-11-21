@@ -1,0 +1,207 @@
+.recipe-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+
+.recipe-card {
+  /* background-color: #FF6F61; */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  width: 100%;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.recipe-card:hover {
+  text-decoration: none;
+  
+  /* opacity: 0.95;
+  color: coral; 
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(118, 255, 3, 0.8);  */
+
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+
+.recipeFront {
+  position: relative;
+  width: 100%;
+  height: 70%;
+}
+
+.recipeFront img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+}
+
+#recipeLabel {
+  text-align: center;
+  padding: 10px;
+}
+
+.suprificialInfo {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flex-row-border {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+#calories,
+#num-ingredients {
+  margin: 0;
+}
+
+#recipeSource {
+  margin-top: 10px;
+}
+
+.Searchbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.Searchbar-container input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #fff; 
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 300px;
+}
+
+.searchBtn {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #FF6347; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.searchBtn:hover {
+  background-color: #ff6347; 
+}
+
+.button-disabled {
+
+  /* styling to keep button the same */
+  padding: 10px 15px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+
+  /* styling to disable button */
+  background-color: #d0d0d0; 
+  cursor: not-allowed;
+}
+
+
+.second-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 5px;
+
+}
+
+.dropdown {
+  position: relative;
+  /* top: 10px; */
+  display: flex;
+  justify-content: center;
+}
+
+.dropbtn {
+  background-color: #ff7f50;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropbtn:hover {
+  opacity: 0.95;
+  background-color: #ff6347;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 35px;
+  bottom: auto; /* Ensures the dropdown ends at the bottom */
+  background-color: #f9f9f9;
+  z-index: 1;
+  width: 300px;
+  max-height: 400px; 
+  overflow-y: auto; /* Enable vertical scroll when content exceeds the height */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  text-align: center ;
+}
+
+#health-dropdown-content {
+  padding-top: 260px;
+}
+
+.dropdown-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px;
+  height: fit-content;
+}
+
+.dropdown-content li {
+  margin: 5px 0;
+}
+
+/* Style the checkboxes and labels */
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Show the dropdown when hover */
+.dropdown:hover .dropdown-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style the dropdown items on hover */
+.dropdown-content li:hover {
+  background-color: #ddd;
+}
+
+.apply-filters-Btn {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #FF6347; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
