@@ -28,7 +28,7 @@ const RecipeSearch = () => {
 
   // mealType filters
   const [selectedMealTypeFilters, setSelectedMealTypeFilters] = useState([]); 
-  const mealTypeFilterQuery = selectedMealTypeFilters.map((filter) => `diet=${filter}`).join('&');
+  const mealTypeFilterQuery = selectedMealTypeFilters.map((filter) => `mealType=${filter}`).join('&');
 
 
 
@@ -62,7 +62,7 @@ const RecipeSearch = () => {
 
     try {
       const response = await axios.get(
-        `https://api.edamam.com/search?q=${query}&app_id=${app_id}&app_key=${app_key}&from=0&to=100&more=true&health=pork-free&health=alcohol-free&${healthFilterQuery}&${dietFilterQuery}&${mealTypeFilterQuery}`
+        `https://api.edamam.com/search?q=${query}&app_id=${app_id}&app_key=${app_key}&from=0&to=100&imageSize=THUMBNAIL&imageSize=SMALL&imageSize=REGULAR&more=true&health=pork-free&health=alcohol-free&${healthFilterQuery}&${dietFilterQuery}&${mealTypeFilterQuery}`
       );
 
       // REMOVED THIS FOR NOW CUZ KEEPS CALLING API!! `https://api.edamam.com/search?q=${query}&app_id=${app_id}&app_key=${app_key}&from=0&to=100&more=true&health=pork-free&health=alcohol-free&${healthFilterQuery}&${dietFilterQuery}`
