@@ -13,6 +13,8 @@ const RecipeSearch = () => {
   const [recipesCount, setRecipesCount] = useState('');
   const [from, setFrom] = useState(0);
   const [message, setMessage] = useState('');
+  const [showFilters, setShowFilters] = useState(true);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const [apiCalls, setApiCalls] = useState(0);
   const [disableButton, setDisableButton] = useState(false);
@@ -149,6 +151,28 @@ const RecipeSearch = () => {
 
   };
 
+  const toggleFilters = () => {
+    setButtonClicked(!buttonClicked);
+    setShowFilters(!showFilters);
+  };
+
+  useEffect(() => {
+    // Hide the filters on mobile
+    const resizeHandler = () => {
+      if (window.innerWidth <= 640) {
+        setShowFilters(false);
+      } else {
+        setShowFilters(true);
+      }
+    };
+
+    window.addEventListener('resize', resizeHandler);
+
+    return () => {
+      window.removeEventListener('resize', resizeHandler);
+    };
+  }, []);
+
   const handleHealthFilterChange = (filter) => {
     // Toggle the selected state of the filter
     setSelectedHealthFilters((prevFilters) => {
@@ -190,6 +214,7 @@ const RecipeSearch = () => {
       <div className='Searchbar-container'>
 
         <input
+          className='searchbar-input'
           type="text"
           placeholder="Enter Recipe Name"
           value={query}
@@ -203,136 +228,160 @@ const RecipeSearch = () => {
       </div>
 
       {/* ADD the physical secondary navbar for HEALTH/DIET/CALORIE LIMIT, INGREDIENTS LIMIT, etc. MAKE SURE they get applied to the API CALL!!!! */}
-
-      <div className="second-navbar">
-
-        {/* Health Filters */}
-        <div className="dropdown">
-          <button className="dropbtn">Health Filters</button>
-          <div id='health-dropdown-content' className="dropdown-content">
-            <ul>
-              {/* Map through the health filter options */}
-              {[
-                'Alcohol-Cocktail',
-                'Alcohol-Free',
-                'Celery-Free',
-                'Crustcean-Free',
-                'Dairy-Free',
-                'DASH',
-                'Egg-Free',
-                'Fish-Free',
-                'FODMAP-Free',
-                'Gluten-Free',
-                'Immuno-Supportive',
-                'Keto-Friendly',
-                'Kidney-Friendly',
-                'Kosher',
-                'Low Potassium',
-                'Low Sugar',
-                'Lupine-Free',
-                'Mediterranean',
-                'Mollusk-Free',
-                'Mustard-Free',
-                'No oil added',
-                'Paleo',
-                'Peanut-Free',
-                'Pescatarian',
-                'Pork-Free',
-                'Red-Meat-Free',
-                'Sesame-Free',
-                'Shellfish-Free',
-                'Soy-Free',
-                'Sugar-Conscious',
-                'Sulfite-Free',
-                'Tree-Nut-Free',
-                'Vegan',
-                'Vegetarian',
-                'Wheat-Free',
-              ].map((filter) => (
-                <li key={filter}>
-                  <input
-                    type="checkbox"
-                    id={filter}
-                    name={filter}
-                    checked={selectedHealthFilters.includes(filter.toLowerCase())}
-                    onChange={() => handleHealthFilterChange(filter.toLowerCase())}
-                  />
-                  <label htmlFor={filter}>{filter}</label>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div>
+        <div className='flex-center'>
+          <button onClick={toggleFilters} className={`toggle-filters-btn ${buttonClicked ? 'toggle-button-clicked' : ''}`}>
+            Filters
+          </button>
         </div>
 
-        {/* Diet Filters */}
-        <div className="dropdown">
-          <button className="dropbtn">Dietary Filters</button>
-          <div className="dropdown-content">
-            <ul>
-              {/* Map through the dietary filter options */}
-              {[
-                'Balanced',
-                'High-Fiber',
-                'High-Protein',
-                'Low-Carb',
-                'Low-Fat',
-                'Low-Sodium',
-              ].map((filter) => (
-                <li key={filter}>
-                  <input
-                    type="checkbox"
-                    id={filter}
-                    name={filter}
-                    checked={selectedDietFilters.includes(filter.toLowerCase())}
-                    onChange={() => handleDietFilterChange(filter.toLowerCase())}
-                  />
-                  <label htmlFor={filter}>{filter}</label>
-                </li>
-              ))}
-            </ul>
+        {showFilters && (
+
+          <div className="second-navbar">
+
+
+            <div className='flex-center'>
+
+              {/* Health Filters */}
+              <div className="dropdown">
+                <button className="dropbtn">Health Filter</button>
+                <div id='health-dropdown-content' className="dropdown-content">
+                  <ul>
+                    {/* Map through the health filter options */}
+                    {[
+                      'Alcohol-Cocktail',
+                      'Alcohol-Free',
+                      'Celery-Free',
+                      'Crustcean-Free',
+                      'Dairy-Free',
+                      'DASH',
+                      'Egg-Free',
+                      'Fish-Free',
+                      'FODMAP-Free',
+                      'Gluten-Free',
+                      'Immuno-Supportive',
+                      'Keto-Friendly',
+                      'Kidney-Friendly',
+                      'Kosher',
+                      'Low Potassium',
+                      'Low Sugar',
+                      'Lupine-Free',
+                      'Mediterranean',
+                      'Mollusk-Free',
+                      'Mustard-Free',
+                      'No oil added',
+                      'Paleo',
+                      'Peanut-Free',
+                      'Pescatarian',
+                      'Pork-Free',
+                      'Red-Meat-Free',
+                      'Sesame-Free',
+                      'Shellfish-Free',
+                      'Soy-Free',
+                      'Sugar-Conscious',
+                      'Sulfite-Free',
+                      'Tree-Nut-Free',
+                      'Vegan',
+                      'Vegetarian',
+                      'Wheat-Free',
+                    ].map((filter) => (
+                      <li key={filter}>
+                        <input
+                          type="checkbox"
+                          id={filter}
+                          name={filter}
+                          checked={selectedHealthFilters.includes(filter.toLowerCase())}
+                          onChange={() => handleHealthFilterChange(filter.toLowerCase())}
+                        />
+                        <label htmlFor={filter}>{filter}</label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Diet Filters */}
+              <div className="dropdown">
+                <button className="dropbtn">Dietary Filter</button>
+                <div className="dropdown-content">
+                  <ul>
+                    {/* Map through the dietary filter options */}
+                    {[
+                      'Balanced',
+                      'High-Fiber',
+                      'High-Protein',
+                      'Low-Carb',
+                      'Low-Fat',
+                      'Low-Sodium',
+                    ].map((filter) => (
+                      <li key={filter}>
+                        <input
+                          type="checkbox"
+                          id={filter}
+                          name={filter}
+                          checked={selectedDietFilters.includes(filter.toLowerCase())}
+                          onChange={() => handleDietFilterChange(filter.toLowerCase())}
+                        />
+                        <label htmlFor={filter}>{filter}</label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* MealType Filters */}
+              <div className="dropdown">
+                <button className="dropbtn">Meal Type Filter</button>
+                <div className="dropdown-content">
+                  <ul>
+                    {/* Map through the mealType filter options */}
+                    {[
+                      'Breakfast',
+                      'Brunch',
+                      'Lunch/Dinner',
+                      'Snack',
+                      'Teatime',
+                    ].map((filter) => (
+                      <li key={filter}>
+                        <input
+                          type="checkbox"
+                          id={filter}
+                          name={filter}
+                          checked={selectedMealTypeFilters.includes(filter.toLowerCase())}
+                          onChange={() => handleMealTypeFilterChange(filter.toLowerCase())}
+                        />
+                        <label htmlFor={filter}>{filter}</label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>            
+
+
+            <div>     
+              <button onClick={handleSearch} disabled={disableButton} className={disableButton ? 'button-disabled' : 'apply-filters-Btn'}>
+                {disableButton ? `Wait ${countdown}s` : 'Apply Filters'}
+              </button>
+            </div>
+
+
+
+
+
           </div>
-        </div>
-
-        {/* MealType Filters */}
-        <div className="dropdown">
-          <button className="dropbtn">Meal Type Filters</button>
-          <div className="dropdown-content">
-            <ul>
-              {/* Map through the mealType filter options */}
-              {[
-                'Breakfast',
-                'Brunch',
-                'Lunch/Dinner',
-                'Snack',
-                'Teatime',
-              ].map((filter) => (
-                <li key={filter}>
-                  <input
-                    type="checkbox"
-                    id={filter}
-                    name={filter}
-                    checked={selectedMealTypeFilters.includes(filter.toLowerCase())}
-                    onChange={() => handleMealTypeFilterChange(filter.toLowerCase())}
-                  />
-                  <label htmlFor={filter}>{filter}</label>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+          
 
 
+        )}
 
-
-        <button onClick={handleSearch} disabled={disableButton} className={disableButton ? 'button-disabled' : 'apply-filters-Btn'}>
-          {disableButton ? `Wait ${countdown}s` : 'Apply Filters'}
-        </button>
-
-
-
-
-
+        
       </div>
+      
+      
+      
+      
+      
 
       
 

@@ -3,7 +3,7 @@ import React from 'react';
 const RecipeDetail = ({ recipe }) => {
 
   // ADD a way to add recipes to a favorites list (maybe use local storage for now, then add a database later)
-
+  
 
   return (
     <div className="individual-recipe">

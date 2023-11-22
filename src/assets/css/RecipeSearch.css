@@ -78,15 +78,16 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
+  gap: 15px;
 }
 
-.Searchbar-container input {
+.searchbar-input {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #fff; 
   border-radius: 5px;
   margin-right: 10px;
-  width: 300px;
+  width: 500px;
 }
 
 .searchBtn {
@@ -121,10 +122,18 @@
 .second-navbar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 15px;
   padding: 5px;
 
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 5px;
 }
 
 .dropdown {
@@ -205,3 +214,92 @@ input[type="checkbox"] {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.toggle-filters-btn{
+  display: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #FF6347; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 300px;
+  margin-top: 15px;
+}
+
+.toggle-button-clicked {
+  background-color: #FF4500; 
+}
+
+@media(min-width:640px) {
+  #health-dropdown-content {
+    left: -40%;
+  }
+}
+
+@media(max-width:640px) {
+  .recipe-list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  } 
+
+  .second-navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 5px;
+  
+  }
+  
+  .flex-center {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropbtn {
+    width: 250px;
+  }
+  
+  .button-disabled {
+    width: 160px;
+  }
+
+  .toggle-filters-btn{
+    display: block;
+
+  }
+}
+
+@media(max-width:440px) {
+
+  .Searchbar-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .searchbar-input {
+    width: auto;
+  }
+
+  .second-navbar {
+
+    background-color: #FF6347;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .apply-filters-Btn {
+    background-color: #FBAF5D; 
+  }
+}
+
+@media(max-width:320px) {
+  .toggle-filters-btn{
+    width: 100%;
+  }
+}
+
+
+
