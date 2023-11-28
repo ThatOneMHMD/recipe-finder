@@ -87,19 +87,20 @@ const RecipeDetail = () => {
     const storedRecipe = JSON.parse(localStorage.getItem('selectedRecipe'));
     // Set the state with the retrieved recipe
     setSelectedRecipe(storedRecipe);
-
+  
     // Retrieve favourite recipes from local storage
-    const storedFavorites = JSON.parse(localStorage.getItem('Favouriterecipes'));
+    const storedFavorites = JSON.parse(localStorage.getItem('Favouriterecipes')) || [];
     // Set the state with the retrieved favorites or an empty array if not found
-    setFavouriteRecipes(storedFavorites || []);
-
+    setFavouriteRecipes(storedFavorites);
+  
     // Check if the current recipe is in favorites
-    const isRecipeInFavorites = storedFavorites.some((favoriteRecipe) =>
-      favoriteRecipe.recipe.label === storedRecipe.recipe.label
+    const isRecipeInFavorites = storedFavorites && storedFavorites.some((favoriteRecipe) =>
+      favoriteRecipe.recipe.label === storedRecipe?.recipe.label
     );
     // Set the initial state of favBtnClicked
     setFavBtnClicked(isRecipeInFavorites);
   }, []);
+  
 
   if (!selectedRecipe) {
     return (

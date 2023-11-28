@@ -29,6 +29,12 @@ const NavBar = ({ activeTab, setActiveTab }) => {
 
 
       {/* ALSO add a Support/Contact tab to allow for email communications using Email.js,etc. */}
+      {/* Add icon to Title in nav? */}
+      {/* ALSO, add a google translate to translate the search bar input into chosen lnaguage then to Eng, do search, get response, translate to chosen language, etc. */}
+
+
+
+
       
       <h1 className='headerTextWithShadow'>
 
