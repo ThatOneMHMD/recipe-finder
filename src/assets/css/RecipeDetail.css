@@ -1,0 +1,238 @@
+.loading-container{
+
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+
+.loading-container img {
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    animation: rotate 1s linear infinite; /* Adjust the duration and timing function as needed */
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-space-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
+/* can later add adds next to the detailed-recipe-card so this must remain flex row */
+.detailed-recipe-container{ 
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+}
+
+.detailed-recipe-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 15px;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.detailed-suprificialInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.detailed-recipeFront{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.textLeft{
+    text-align: left;
+    margin: 20px;
+}
+
+.favBtn {
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #FF6347; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.favBtn-unClicked{
+    background-color: #FBAF5D;
+}
+
+.favBtn:hover {
+    /* background-color: #ff6347;  */
+    opacity: 0.8;
+
+}
+
+.detailed-flex-row-border{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* gap: 50px; */
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 5px;
+}
+
+.nutrition{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#detailed-recipeSource{
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+}
+
+.detailed-recipe-info{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 20px;
+}
+
+.detailed-recipe-ingredients, 
+.detailed-recipe-healthLables{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+   
+}
+
+.detailed-recipe-ingredients p, 
+.detailed-recipe-healthLables p{
+    border-bottom: 1px solid #ccc;
+}
+
+.detailed-recipe-ingredients ul li{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    margin-top: 20px;
+}
+
+.detailed-recipe-healthLables{
+    justify-content: center;
+    text-align: center;
+}
+
+@media(max-width:640px) {
+
+    .detailed-recipe-card{
+        display: flex;
+        width: 100%;
+        padding: 10px;
+        margin: 5px;
+        font-size: 14px;
+    }
+
+    .detailed-recipe-container{ 
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .detailed-recipeFront{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .textLeft{
+        width: 100%;
+        text-align: center;
+    }
+
+    .flex-column{
+        width: 100%;
+    }
+
+    .detailed-flex-row-border{
+        flex-direction: column;
+    }
+
+    .nutrition{
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .detailed-suprificialInfo{
+        width: 100%;
+    }
+
+    #detailed-recipeSource{
+        flex-direction: column;
+    }
+
+    .detailed-recipe-healthLables{
+        font-size: 14px;
+    }
+
+    .detailed-recipe-ingredients ul{
+        margin: 0;
+        padding: 0;
+        
+    }
+
+}

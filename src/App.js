@@ -26,15 +26,17 @@ function App() {
         {/* pass in activeTab state */}
         <NavBar setActiveTab={setActiveTab} activeTab={activeTab} />
         
+        <div className="maxComponentHeight">
+          <Routes>
+            
+            <Route path="/" element={<RecipeSearch />} />        
+            <Route path="/recipe/:index" element={<RecipeDetail />} />
+            <Route path="/favourites" element={<Favourites />} />
+            <Route path="*" element={<RecipeSearch />} />
 
-        <Routes>
-          
-          <Route path="/" element={<RecipeSearch />} />        
-          <Route path="/recipe/:id" element={<RecipeDetail />} />
-          <Route path="/favourites" element={<Favourites />} />
-          <Route path="*" element={<RecipeSearch />} />
+          </Routes>
 
-        </Routes>
+        </div>
 
         <Footer />
 

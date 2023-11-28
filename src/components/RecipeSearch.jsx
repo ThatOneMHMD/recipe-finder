@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import { BrowserRouter as useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';import axios from 'axios';
 import '../assets/css/RecipeSearch.css';
 
 const RecipeSearch = () => {
@@ -15,10 +15,11 @@ const RecipeSearch = () => {
   const [message, setMessage] = useState('');
   const [showFilters, setShowFilters] = useState(true);
   const [buttonClicked, setButtonClicked] = useState(false);
-
   const [apiCalls, setApiCalls] = useState(0);
   const [disableButton, setDisableButton] = useState(false);
   const [countdown, setCountdown] = useState(60); // Countdown in seconds
+  const [apiLoading, setApiLoading] = useState(false);
+
 
   // health filters 
   const [selectedHealthFilters, setSelectedHealthFilters] = useState(['alcohol-free', 'pork-free']); 
@@ -33,10 +34,10 @@ const RecipeSearch = () => {
   const mealTypeFilterQuery = selectedMealTypeFilters.map((filter) => `mealType=${filter}`).join('&');
 
 
-
-
-
   const handleSearch = async () => {
+
+    // Set loading to true when starting the API call
+    setApiLoading(true);
 
     // Handle the API call limit. Note that we could have just made use of the 'more' parameter in the API call, but I wanted to demonstrate how to handle the API call limit in another way. (ex: in the catch block, we could have checked if the error message was 'too many requests' and then set the countdown accordingly.)
     if (apiCalls >= 10) {
@@ -67,13 +68,19 @@ const RecipeSearch = () => {
         `https://api.edamam.com/search?q=${query}&app_id=${app_id}&app_key=${app_key}&from=0&to=100&imageSize=THUMBNAIL&imageSize=SMALL&imageSize=REGULAR&more=true&health=pork-free&health=alcohol-free&${healthFilterQuery}&${dietFilterQuery}&${mealTypeFilterQuery}`
       );
 
+      // save the response to local storage
+      localStorage.setItem('recipeResponse', JSON.stringify(response.data.hits));
+
       // REMOVED THIS FOR NOW CUZ KEEPS CALLING API!! `https://api.edamam.com/search?q=${query}&app_id=${app_id}&app_key=${app_key}&from=0&to=100&more=true&health=pork-free&health=alcohol-free&${healthFilterQuery}&${dietFilterQuery}`
 
       setRecipes(response.data.hits);
       setRecipesCount(response.data.count);
       setApiCalls((prevApiCalls) => prevApiCalls + 1);
+      // Set loading to false when the API call is successful
+      setApiLoading(false);
 
       
+      // This list of logs helps view the data structure of the API response; very important to know what you are working with!
       console.log(response.data.hits);
       console.log("//////////////////////////////////");
       console.log(response.data);
@@ -92,6 +99,9 @@ const RecipeSearch = () => {
 
     } catch (error) {
       console.error('Error fetching recipes:', error);
+      // Set loading to false when there's an error in the API call
+      setApiLoading(false);
+
     }
   };
 
@@ -128,11 +138,26 @@ const RecipeSearch = () => {
 
   // Use the useEffect hook to run the handleSearch function whenever the 'from' state changes
   useEffect(() => {
+    const storedResponse = JSON.parse(localStorage.getItem('recipeResponse'));
+    if (storedResponse) {
+      setRecipes(storedResponse);
+      setApiLoading(false);
+      return;
+    }
+
     handleSearch();
     console.log(from)
   }, [from]);
 
   useEffect(() => {
+
+    const storedResponse = JSON.parse(localStorage.getItem('recipeResponse'));
+    if (storedResponse) {
+      setRecipes(storedResponse);
+      setApiLoading(false);
+      return;
+    }
+
     // Load recipes when the component mounts
     handleSearch();
 
@@ -140,16 +165,37 @@ const RecipeSearch = () => {
     return () => clearTimeout();
   }, []);
 
-  // const history = useHistory();
+
+
+
+  // FIX THIS STUFF UNDER::::::::::::::::::: 
+
+  // do not need this!!!?
+  const navigate = useNavigate();
 
   const handleRecipeClick = (recipeIndex) => {
+    // Retrieve and parse the object from Local Storage
+    const storedResponse = JSON.parse(localStorage.getItem('recipeResponse'));
+  
+    // Check if the array and the element exist
+    if (storedResponse && storedResponse[recipeIndex]) {
 
-    // work on this later!!!! COnnected to the recipeDetail component!!!!!!
-    // history.push(`/recipe/${recipeIndex}`);
+      // Access the recipe property: this is basically: response.data.hits[recipeIndex].recipe
+      const selectedRecipe = storedResponse[recipeIndex];
 
-    console.log("this is work in progress...", recipeIndex)
+      // Save the selected recipe to Local Storage
+      localStorage.setItem('selectedRecipe', JSON.stringify(selectedRecipe));
+  
+      // Navigate or do something with the selectedRecipe
+      // For example, navigate to a new route with the recipe details
 
+      // navigate(`/recipe/${selectedRecipe.label}`);
+      
+    } else {
+      console.log("Invalid recipe index or missing data.");
+    }
   };
+  
 
   const toggleFilters = () => {
     setButtonClicked(!buttonClicked);
@@ -207,7 +253,6 @@ const RecipeSearch = () => {
   };
 
 
-
   return (
     <div>
 
@@ -216,9 +261,10 @@ const RecipeSearch = () => {
         <input
           className='searchbar-input'
           type="text"
-          placeholder="Enter Recipe Name"
+          placeholder={query ? query : "Enter Recipe Name"}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
         />
 
         <button onClick={handleSearch} disabled={disableButton} className={disableButton ? 'button-disabled' : 'searchBtn'}>
@@ -377,24 +423,36 @@ const RecipeSearch = () => {
 
         
       </div>
+
+
+      {apiLoading && (
+        <div className="loading-container">
+         <img src="https://png.pngtree.com/png-vector/20220705/ourmid/pngtree-loading-icon-vector-transparent-png-image_5687537.png" alt="Loading Screen..." />
+        </div>
+      )}
       
       
       
-      
-      
-
-      
-
-
-
-
-
-
 
       {/* useless since I do not have access to them all! I can only access 100! */}
       {/* <h5>{recipesCount >= 9999 ? `more than ${recipesCount} recipes found!` : `${recipesCount} recipes found!`}</h5> */}
 
-      <h5>{`${recipes.length} recipes found!`}</h5>
+
+      {apiLoading ? <h5>Searching...</h5> : <h5>{`${recipes.length} recipes found!`}</h5>}
+
+      {recipes.length === 0 ? (
+        // Render this if the array is empty
+        <div>
+          
+          <h5>We couldn't find any matches for "{query}"</h5>
+          <h5>Double check your search for any typos or spelling errors - or try a different search term!</h5>
+
+          <br />
+
+          {/* add a picture of a chef scratching head or shrugging etc. */}
+          
+        </div>
+      ) : ('')}
 
 
       <div className="recipe-list">
@@ -403,36 +461,40 @@ const RecipeSearch = () => {
 
 
           <div className="recipe-card" value={index} key={recipe.recipe.uri} onClick={() => handleRecipeClick(index)}>
-
-            <div className='recipeFront'>
-
-              <img src={recipe.recipe.image} alt={recipe.recipe.label} />
-
-              <h3 id='recipeLabel'>{recipe.recipe.label}</h3>
-
-            </div>
-
-            <div className='suprificialInfo'>
-
+            
+            <Link to={`/recipe/${index}`} key={recipe.recipe.uri}>
               
-              <p>{recipe.recipe.cuisineType} {recipe.recipe.dishType}</p>
-                
-              
+              <div className='recipeFront'>
 
-              <div className='flex-row-border'>
-                <p id='calories'> {Math.round(recipe.recipe.calories)} calories</p>
-                <p id='num-ingredients'> {recipe.recipe.ingredients.length} ingredients </p>
+                <img src={recipe.recipe.image} alt={recipe.recipe.label} />
+
+                <h3 id='recipeLabel'>{recipe.recipe.label}</h3>
+
               </div>
-      
-              <p id='recipeSource'> 
 
-                <a href={recipe.recipe.url} target="_blank" rel="noopener noreferrer">
-                  {recipe.recipe.source} 
-                </a>
+              <div className='suprificialInfo'>
 
-              </p>
+                
+                <p>{recipe.recipe.cuisineType} {recipe.recipe.dishType}</p>
+                  
+                
 
-            </div>
+                <div className='flex-row-border'>
+                  <p id='calories'> {Math.round(recipe.recipe.calories)} calories</p>
+                  <p id='num-ingredients'> {recipe.recipe.ingredients.length} ingredients </p>
+                </div>
+        
+                <p id='recipeSource'> 
+
+                  <a href={recipe.recipe.url} target="_blank" rel="noopener noreferrer">
+                    {recipe.recipe.source} 
+                  </a>
+
+                </p>
+
+              </div>
+
+            </Link>
 
           </div>
 
@@ -449,5 +511,8 @@ const RecipeSearch = () => {
     </div>
   );
 };
+
+
+// CheckPOINT!!
 
 export default RecipeSearch;

@@ -17,24 +17,29 @@ const NavBar = ({ activeTab, setActiveTab }) => {
 
   // Function to check if the current location matches the default path
   const isDefaultPath = () => {
-    return location.pathname === '/' || location.pathname === '';
+    return location.pathname === '/' || location.pathname === '/recipe-finder' || location.pathname === '/recipe-finder/' || location.pathname === '';
   }; 
 
   return (
     <div className='navbar-container'>
 
       {/* Later, consider adding users, then allow users to post their recipes. Add ads, and earn money. Pay users to post (from ads, like YT)... */}
+
+
+
+
+      {/* ALSO add a Support/Contact tab to allow for email communications using Email.js,etc. */}
       
       <h1 className='headerTextWithShadow'>
 
-        Recipe Finder
+        <Link to="/">Recipe Finder</Link>
         
       </h1>
 
       {/* Navigation links: set correct path corersponding to clicked link and make it the active tab then apply the active CSS class! */}
       <ul className="navbar-links">
         <li>
-          <Link to="/recipeSearch" className={isLinkActive('/recipeSearch') || isDefaultPath() ? "active" : ""}>Recipe Search</Link>
+          <Link to="/recipeSearch" className={isLinkActive('/recipeSearch') || isDefaultPath() ? "active" : ""}>Recipes</Link>
         </li>
 
         <li>

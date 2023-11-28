@@ -17,3 +17,7 @@ code {
 }
 
 /* for navBar use coral: FF6F61 or Persimmon: #FF6347 or Apricot: FBAF5D */
+
+.maxComponentHeight{
+  min-height: 85vh;
+}

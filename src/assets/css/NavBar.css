@@ -1,11 +1,13 @@
 /* NAVBAR CSS STYLING */
 
-.headerTextWithShadow{
+.headerTextWithShadow, .headerTextWithShadow a{
+    text-decoration: none;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
     font-size: 30px;
     font-weight: bold;
     color: #fff;
 }
+
 .navbar-container {
     display: flex;
     flex-direction: row;
@@ -34,7 +36,7 @@
 .navbar-links a:hover {
     color: #F8F8FF; 
     text-decoration: none;
-    opacity: 0.5;
+    /* opacity: 0.5; */
 }
 
 
