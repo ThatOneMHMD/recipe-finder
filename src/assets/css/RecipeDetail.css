@@ -136,6 +136,7 @@
     gap: 10px;
     align-items: center;
     width: 100%;
+    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding: 5px;
 }
@@ -236,3 +237,25 @@
     }
 
 }
+
+@media(max-width:320px) {
+
+    .detailed-recipe-card{
+      padding-top: 0;
+    }
+  
+    .recipeFront img {
+      width: 100%;
+    }
+  
+    .recipe-list {
+      grid-template-columns: repeat(auto-fit, minmax(80px, 3fr));
+    }
+  
+    #recipeLabel {
+      font-size: 11px;
+      margin: 0;
+    }
+  
+  
+  }

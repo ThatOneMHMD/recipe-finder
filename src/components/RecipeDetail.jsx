@@ -209,11 +209,9 @@ const RecipeDetail = () => {
               
             </div>
 
-            
-
-        
-
           </div>
+
+          <br /> <br />
 
           <div id='detailed-recipeSource'> 
 

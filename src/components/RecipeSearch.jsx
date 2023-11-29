@@ -258,15 +258,19 @@ const RecipeSearch = () => {
 
       <div className='Searchbar-container'>
 
-        <input
-          className='searchbar-input'
-          type="text"
-          placeholder={query ? query : "Enter Recipe Name"}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-        />
-
+        {/* wrap this in a FORM and add onSubmit to allow better functionality! */}
+        
+        <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
+          <input
+            className='searchbar-input'
+            type="text"
+            placeholder={query ? query : "Enter Recipe Name"}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          />
+        </form>
+        
         <button onClick={handleSearch} disabled={disableButton} className={disableButton ? 'button-disabled' : 'searchBtn'}>
           {disableButton ? `Wait ${countdown}s` : 'Search'}
         </button>   

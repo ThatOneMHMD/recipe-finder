@@ -344,6 +344,24 @@ input[type="checkbox"] {
   .toggle-filters-btn{
     width: 100%;
   }
+
+  .suprificialInfo{
+    display: none;
+  }
+
+  .recipeFront img {
+    width: 100%;
+  }
+
+  .recipe-list {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 3fr));
+  }
+
+  #recipeLabel {
+    font-size: 11px;
+    margin: 0;
+  }
+
 }
 
 
