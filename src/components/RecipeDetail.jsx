@@ -227,6 +227,10 @@ const RecipeDetail = () => {
 
       </div>
 
+
+
+      {/* HERE, add a SEE SIMILAR RECIPES section where u call the api and make the query the name of the selected recipe label!!! use local storage here? */}
+
     </div>
   );
 

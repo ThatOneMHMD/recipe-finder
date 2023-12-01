@@ -161,6 +161,53 @@
   cursor: not-allowed;
 }
 
+form{
+  display:flex;
+  align-items: center;
+}
+
+/* for search history */
+.searchHistoryDropdown {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.searchHistoryDropdown-content{
+  display: block;
+  position: absolute;
+  top: 30px;
+  right: 37px;
+  bottom: auto; /* Ensures the dropdown ends at the bottom */
+  background-color: #f9f9f9;
+  z-index: 1;
+  width: 500px; /* make = to input width, could use variables... */
+  /* max-height: 400px;  */
+  overflow-y: auto; 
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  text-align: center ;
+}
+
+.searchHistoryDropdown-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px;
+  height: fit-content;
+}
+
+.searchHistoryDropdown-content li {
+  margin: 5px 0;
+}
+
+.searchHistoryDropdown-content li:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown when hover */
+.searchHistoryDropdown:hover{
+  cursor: pointer;
+}
 
 .second-navbar {
   display: flex;
@@ -295,6 +342,16 @@ input[type="checkbox"] {
     padding: 5px;
   
   }
+
+  .Searchbar-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .searchbar-input {
+    width: 420px;
+    margin: 0;
+  }
   
   .flex-center {
     display: flex;
@@ -313,6 +370,18 @@ input[type="checkbox"] {
     display: block;
 
   }
+
+  .searchHistoryDropdown{
+    bottom: 40px;
+    left: 38px;
+    width: 400px;
+    
+  }
+
+  .searchHistoryDropdown-content {
+    width: 100%;
+    
+  }
 }
 
 @media(max-width:440px) {
@@ -325,7 +394,24 @@ input[type="checkbox"] {
 
   .searchbar-input {
     width: 100%;
-    margin-right: 0;
+    margin: 0;
+  }
+
+  .searchHistoryDropdown{
+    bottom: 40px;
+    width: 100%;
+    left: 200px;
+  }
+
+  .searchHistoryDropdown-content ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .searchHistoryDropdown-content {
+    right: 199px;
+    width: 100%;
   }
 
   .second-navbar {
@@ -340,7 +426,13 @@ input[type="checkbox"] {
   }
 }
 
-@media(max-width:320px) {
+
+/* THIS can definately be increased to 380 (was 320) */
+/* NOT SAVD YET to GITHUB!! or deployed */
+
+
+/* allow this to be a button to switch from big size to smaller like this even on larger screens: only allow button to show up at certain screen size (not PCs but only for tablets etc. */
+@media(max-width:380px) {
   .toggle-filters-btn{
     width: 100%;
   }
@@ -360,6 +452,7 @@ input[type="checkbox"] {
   #recipeLabel {
     font-size: 11px;
     margin: 0;
+    padding: 5px;
   }
 
 }
