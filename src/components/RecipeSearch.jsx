@@ -26,6 +26,7 @@ const RecipeSearch = () => {
   const [searchHistory, setSearchHistory] = useState([]);
   const maxHistoryItems = 10;
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
+  const [lastExecutionTime, setLastExecutionTime] = useState(0);
 
 
   // health filters 
@@ -46,15 +47,14 @@ const RecipeSearch = () => {
 
   // pass in query so that laster on I cna use the history item to run this func
   const handleSearch = async (query) => {
-    
 
+    if (query === undefined) {
+      setQuery('chocolate chip cookies');
+    }
+
+    
     // Hide the search history dropdown when a history item is clicked
     setShowHistoryDropdown(false);
-
-    // // Move the clicked item to the top of the history
-    // const updatedHistory = [item, ...searchHistory.filter((historyItem) => historyItem !== item)];
-    // setSearchHistory(updatedHistory);
-    // setQuery(item);
 
     // Set loading to true when starting the API call
     setApiLoading(true);
@@ -102,18 +102,28 @@ const RecipeSearch = () => {
       setRecipes(response.data.hits);
       setRecipesCount(response.data.count);
       setApiCalls((prevApiCalls) => prevApiCalls + 1);
-      setQuery(storedDataResponse.q);
-      setOffLineQuery(storedDataResponse.q)
+
+      if(storedDataResponse){
+        setQuery(storedDataResponse.q);
+        setOffLineQuery(storedDataResponse.q)
+      }
+
+      
+
       // Set loading to false when the API call is successful
       setApiLoading(false);
-      
-      
-      // for search history: add the query to the search history array
-      if (query.trim() !== '' && !searchHistory.includes(query)) {
-        const updatedHistory = [query, ...searchHistory.slice(0, maxHistoryItems - 1)];
-        localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-        setSearchHistory(updatedHistory);
+
+      if (query !== undefined) {
+        // for search history: add the query to the search history array
+        if (query.trim() !== '' && !searchHistory.includes(query)) {
+          const updatedHistory = [query, ...searchHistory.slice(0, maxHistoryItems - 1)];
+          localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+          setSearchHistory(updatedHistory);
+        }
       }
+      
+      
+
 
       
       // This list of logs helps view the data structure of the API response; very important to know what you are working with!
@@ -184,11 +194,15 @@ const RecipeSearch = () => {
       return;
     }
 
-    handleSearch();
+    handleSearch(query);
     console.log(from)
   }, [from]);
 
   useEffect(() => {
+
+    if (query === undefined) {
+      setQuery('chocolate chip cookies');
+    }
 
     const storedResponse = JSON.parse(localStorage.getItem('recipeResponse'));
     const storedDataResponse = JSON.parse(localStorage.getItem('dataResponse'));
@@ -203,7 +217,7 @@ const RecipeSearch = () => {
     }
 
     // Load recipes when the component mounts
-    handleSearch();
+    handleSearch(query);
 
     // Cleanup the message when the component unmounts
     return () => clearTimeout();
@@ -296,6 +310,15 @@ const RecipeSearch = () => {
 
   };
 
+
+
+
+
+  useEffect(() => {
+    // Log the updated query value
+    console.log(query);
+  }, [query]);
+
   // When clicking on a history item, set the query and run the search (Add one to only change query but not run search!)
   const handleHistoryClick = (item) => {
 
@@ -306,13 +329,53 @@ const RecipeSearch = () => {
 
     setQuery(item);
 
+    // setQuery(item, handleSearch ());
 
-    // Run the search
+
+
+
+    // THIs is still not working. Maybe use HandleSearch(item) instead of just handleSearch()? Think of a better way. ORORORORO, just make do without it, as in let the history click allow the query and text iside input to change then they click on handleSearch manually!!!
+
+
+
+
+
+    
+
+    // // Run the search (I had it as handleSearch(item) but it was causing lots of issues!))
     handleSearch(item);
 
     // Hide the search history dropdown when a history item is clicked
     setShowHistoryDropdown(false);
+
+    console.log(query)
   };
+
+  // useEffect(() => {
+
+  //   // Check if the function can be executed based on the refractory period (2 seconds in this example)
+  //   const currentTime = new Date().getTime();
+  //   if (currentTime - lastExecutionTime >= 5000) {
+  //     // Update the last execution time
+  //     setLastExecutionTime(currentTime);
+
+  //     console.log('function called....')
+  //     handleSearch();
+  //   }
+
+  // }, [searchHistory]);
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleDietFilterChange = (filter) => {
     // Toggle the selected state of the filter
@@ -351,14 +414,14 @@ const RecipeSearch = () => {
 
 
 
-        <form className='flex-center' onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
+        <form className='flex-center' onSubmit={(e) => { e.preventDefault(); handleSearch(query); }}>
           <input
             className='searchbar-input'
             type="text"
             placeholder={query ? query : "Enter Recipe Name"}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch(query)}
             onClick={handleInputClick}
             onBlur={handleInputBlur}
           />
