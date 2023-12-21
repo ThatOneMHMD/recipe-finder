@@ -31,6 +31,8 @@ const NavBar = ({ activeTab, setActiveTab }) => {
 
       {/* Also add another tab that would take the user's ingredients then show available recipes!! */}
 
+      {/* Also, in the recipe list, when the no-image icon is rendered: apply a hover so that when user hovers it says try search again or reload page etc. (NO, no reload page, GitHub gets angry... and it crashes)*/}
+
       {/* Add icon to Title in nav? NOT WORKING... */}
       {/* <img src="../assets/images/chefHeadIcon.png" alt="!!!Recipe Finder Recipe" /> */}
 

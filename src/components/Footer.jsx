@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="footer-links">
 
 
-        {/* ADD a copyright and license tab etc... */}
+        {/* ADD a version for the app and update with each update, copyright and license tab etc... */}
 
 
 
