@@ -26,8 +26,18 @@ This React front-end App functions as a professional Recipe Finder. Once the app
 - When the user loads the page, they are presented with a main search bar to search for recipes by names or ingredients
 - When user clicks on recipe card, they are presented with a page with the recipe's detailed info
 - When user clicks on or hovers over the "filter" button, they are presented with a dropdown menu with different filters to filter the search results
+- When user clicks on the search bar and if they had already search for recipes, they are presented with a dropdown menu with their previous searches 
 - When user clicks on "Save Recipe" button, they are presented with a page with the recipe's detailed info
 - When user clicks on "Favorites" tab, they are presented with a page with all of their saved recipes
+- When user opens app on devices of different screen sizes, the app readjusts itself to fit in appropriately
+
+## Screenshots
+
+![recipe-finder screenshot (shawarma)](https://github.com/ThatOneMHMD/recipe-finder/assets/126360257/ed4e43c8-504c-4425-88d5-f25ebdab0646)
+
+![recipe-finder screenshot (chocolate cake)](https://github.com/ThatOneMHMD/recipe-finder/assets/126360257/40b3d9d3-15d1-4848-8719-c415b1ab4c41)
+
+![recipe-finder screenshot - favourites](https://github.com/ThatOneMHMD/recipe-finder/assets/126360257/7c19756a-bf0c-4734-aadc-d1083ac0f1b1)
 
 ## Future Development
 - Add a "recipe based on ingredients" feature to allow users to search for recipes based on ingredients they have at home
