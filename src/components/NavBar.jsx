@@ -25,11 +25,15 @@ const NavBar = ({ activeTab, setActiveTab }) => {
 
       {/* Later, consider adding users, then allow users to post their recipes. Add ads, and earn money. Pay users to post (from ads, like YT)... */}
 
-
-
-
       {/* ALSO add a Support/Contact tab to allow for email communications using Email.js,etc. */}
-      {/* Add icon to Title in nav? */}
+
+      {/* ALSO, add an About tan for the user to learn more about the app, developers, etc. */}
+
+      {/* Also add another tab that would take the user's ingredients then show available recipes!! */}
+
+      {/* Add icon to Title in nav? NOT WORKING... */}
+      {/* <img src="../assets/images/chefHeadIcon.png" alt="!!!Recipe Finder Recipe" /> */}
+
       {/* ALSO, add a google translate to translate the search bar input into chosen lnaguage then to Eng, do search, get response, translate to chosen language, etc. */}
 
 
@@ -38,7 +42,9 @@ const NavBar = ({ activeTab, setActiveTab }) => {
       
       <h1 className='headerTextWithShadow'>
 
-        <Link to="/">Recipe Finder</Link>
+        <Link to="/">
+          Recipe Finder
+        </Link>
         
       </h1>
 
@@ -51,6 +57,7 @@ const NavBar = ({ activeTab, setActiveTab }) => {
         <li>
           <Link to="/favourites" className={isLinkActive('/favourites') || isDefaultPath() ? "active" : ""}>Favourites</Link>
         </li>
+        
         
 
       </ul>

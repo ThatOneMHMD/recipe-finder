@@ -163,17 +163,89 @@
     border-bottom: 1px solid #ccc;
 }
 
+/* not necessary */
+/* .smallFont{
+    font-size: 11px;
+    text-align: center;
+} */
+
 .detailed-recipe-ingredients ul li{
     display: flex;
     flex-direction: row;
-    align-items: start;
-    justify-content: start;
+    align-items: flex-start;
+    justify-content: flex-start;
     margin-top: 20px;
 }
+
+.ingredient-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Hide the default checkbox */
+.ingredient-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+/* Style the custom checkbox */
+.ingredient-checkbox label {
+  position: relative;
+  padding-left: 30px; 
+  cursor: pointer;
+  font-size: 16px; 
+}
+
+/* Style the checkmark inside the custom checkbox */
+.ingredient-checkbox label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px; 
+  height: 18px; 
+  border: 2px solid #333; 
+  background-color: #fff; 
+}
+
+/* Style the checkmark when the checkbox is checked */
+.ingredient-checkbox input[type="checkbox"]:checked + label:before {
+  background-color: #4CAF50; 
+  border: 2px solid #4CAF50; 
+}
+
+
+
 
 .detailed-recipe-healthLables{
     justify-content: center;
     text-align: center;
+}
+
+
+
+
+/* similar recipes styling */
+/* Remove the Display:none when ready to display... */
+.similar-recipe-list{
+
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 10px; */
+
+    display: none;
+}
+
+#available-similar-recipes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    padding: 15px;
+    background-color: white;
+    overflow: hidden;
 }
 
 @media(max-width:640px) {
@@ -258,4 +330,4 @@
     }
   
   
-  }
+}

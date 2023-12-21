@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../assets/css/RecipeSearch.css';
 
@@ -26,7 +25,7 @@ const RecipeSearch = () => {
   const [searchHistory, setSearchHistory] = useState([]);
   const maxHistoryItems = 10;
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
-  const [lastExecutionTime, setLastExecutionTime] = useState(0);
+  // const [lastExecutionTime, setLastExecutionTime] = useState(0);
 
 
   // health filters 
@@ -151,6 +150,11 @@ const RecipeSearch = () => {
     }
   };
 
+  // handleSeach but for Button since it cannot take in a parameter
+  const handleSearchBtn = async () => {
+    handleSearch(query);
+  }
+
   // fetch more recipes (at the moment useless since the max is 100 recipes per search  - 10 per minute) and I am getting them all!
   const handleMoreRecipes = async () => {
     try {
@@ -190,9 +194,16 @@ const RecipeSearch = () => {
     if (storedResponse) {
       setRecipes(storedResponse);
       setApiLoading(false);
-      setQuery(storedDataResponse.q);
+
+      if (storedDataResponse) {
+        setQuery(storedDataResponse.q);
+      }
+
       return;
     }
+
+    
+
 
     handleSearch(query);
     console.log(from)
@@ -211,7 +222,9 @@ const RecipeSearch = () => {
     if (storedResponse) {
       setRecipes(storedResponse);
       setApiLoading(false);
-      setOffLineQuery(storedDataResponse.q)
+      if (storedDataResponse) {
+        setOffLineQuery(storedDataResponse.q)
+      }
       setSearchHistory(storedSearchHistory);
       return;
     }
@@ -236,6 +249,9 @@ const RecipeSearch = () => {
 
       // Save the selected recipe to Local Storage
       localStorage.setItem('selectedRecipe', JSON.stringify(selectedRecipe));
+
+      // Save the recipe index to Local Storage
+      localStorage.setItem('recipeIndex', JSON.stringify(recipeIndex));
       
     } else {
       console.log("Invalid recipe index or missing data.");
@@ -297,8 +313,13 @@ const RecipeSearch = () => {
   // }, [searchHistory]);
 
   const handleInputClick = () => {
-    // Show the search history dropdown when the input is clicked
-    setShowHistoryDropdown(true);
+    const storedSearchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    if (storedSearchHistory.length === 0) {
+      setShowHistoryDropdown(false);
+    } else{
+      // Show the search history dropdown when the input is clicked
+      setShowHistoryDropdown(true); 
+    }
   };
 
   const handleInputBlur = () => {
@@ -306,7 +327,7 @@ const RecipeSearch = () => {
     setTimeout(() => {
       // Do not show the search history dropdown when user clicks away from the input
       setShowHistoryDropdown(false);
-    }, 1000);
+    }, 250);
 
   };
 
@@ -366,16 +387,7 @@ const RecipeSearch = () => {
   // }, [searchHistory]);
 
 
-
-
-
-
-
-
-
-
-
-
+  
 
   const handleDietFilterChange = (filter) => {
     // Toggle the selected state of the filter
@@ -412,8 +424,6 @@ const RecipeSearch = () => {
 
 
 
-
-
         <form className='flex-center' onSubmit={(e) => { e.preventDefault(); handleSearch(query); }}>
           <input
             className='searchbar-input'
@@ -432,7 +442,9 @@ const RecipeSearch = () => {
               <div className='searchHistoryDropdown-content'>
                 <ul>
                   {searchHistory.map((item, index) => (
-                    <li key={index} onClick={() => handleHistoryClick(item)}>
+                    <li key={index} onClick={() => {
+                      handleHistoryClick(item);
+                    }}>
                       {item}
                     </li>
                   ))}
@@ -444,7 +456,7 @@ const RecipeSearch = () => {
         </form>
         
 
-        <button onClick={handleSearch} disabled={disableButton} className={disableButton ? 'button-disabled' : 'searchBtn'}>
+        <button onClick={handleSearchBtn} disabled={disableButton} className={disableButton ? 'button-disabled' : 'searchBtn'}>
           {disableButton ? `Wait ${countdown}s` : 'Search'}
         </button> 
 
@@ -589,7 +601,7 @@ const RecipeSearch = () => {
 
 
             <div>     
-              <button onClick={handleSearch} disabled={disableButton} className={disableButton ? 'button-disabled' : 'apply-filters-Btn'}>
+              <button onClick={handleSearchBtn} disabled={disableButton} className={disableButton ? 'button-disabled' : 'apply-filters-Btn'}>
                 {disableButton ? `Wait ${countdown}s` : 'Apply Filters'}
               </button>
             </div>
@@ -653,7 +665,14 @@ const RecipeSearch = () => {
 
                 {/* If img does not exist, display 'no image' icon! */}
                 {recipe.recipe.image ? (
-                  <img src={recipe.recipe.image} alt={recipe.recipe.label} />
+                  <img 
+                    src={recipe.recipe.image} alt={recipe.recipe.label} 
+                    onError={(e) => {
+                      e.target.onerror = null; // Prevent infinite loop if 'noImgSrc' also fails to load
+                      e.target.src = noImgSrc;
+                      e.target.alt = 'No Image Screen...';
+                    }}
+                  />
                   
                 ): (<img src={noImgSrc} alt="No Image Screen..." />)}
 

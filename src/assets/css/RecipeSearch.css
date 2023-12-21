@@ -26,6 +26,8 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   padding: 10px;
+  justify-items: center; 
+  align-items: center;
 }
 
 .recipe-card a, .recipeFront a, .suprificialInfo a{
@@ -46,6 +48,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   height: 100%;
   width: 100%;
+  max-width: 600px;
   padding: 2px;
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
@@ -450,6 +453,9 @@ input[type="checkbox"] {
   }
 
   #recipeLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 11px;
     margin: 0;
     padding: 5px;
